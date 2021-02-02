@@ -12,9 +12,9 @@ export default function ImageGallery({ searchQueryProp }) {
 
   useEffect(() => {
     apiRes
-      .getGalleryData(searchQueryProp)
+      .getImagesData(searchQueryProp)
       .then(response => {
-        setImages(response?.hits);
+        setImages(response);
         setIsLoading(true);
       })
       .catch(error => console.log(error))
@@ -27,8 +27,8 @@ export default function ImageGallery({ searchQueryProp }) {
     setIsLoading(true);
     setImages([]);
 
-    apiRes.getGalleryData(searchQueryProp).then(newImages => {
-      setImages(newImages.hits);
+    apiRes.getImagesData(searchQueryProp).then(newImages => {
+      setImages(newImages);
       setPage(page + 1);
       setIsLoading(false);
     });
@@ -42,8 +42,8 @@ export default function ImageGallery({ searchQueryProp }) {
   const handleLoadMoreImages = () => {
     setIsLoading(true);
 
-    return apiRes.getGalleryData(searchQueryProp, page).then(newImages => {
-      setImages([...images, ...newImages.hits]);
+    return apiRes.getImagesData(searchQueryProp, page).then(newImages => {
+      setImages([...images, ...newImages]);
       setPage(page + 1);
       setIsLoading(false);
     });
